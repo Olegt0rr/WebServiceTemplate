@@ -10,16 +10,16 @@ isort:
 black:
 	black app/
 
-flake8:
-	flake8 app/
-
 mypy:
 	mypy -p app
 
 pylint:
 	pylint app/
 
-lint: isort black mypy flake8 pylint
+ruff:
+	ruff check app
+
+lint: isort black ruff mypy pylint
 
 
 run:

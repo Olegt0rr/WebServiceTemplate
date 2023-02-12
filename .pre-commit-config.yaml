@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: 'v4.4.0'
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -17,13 +17,13 @@ repos:
         exclude: tests|alembic
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+    rev: '5.12.0'
     hooks:
       - id: isort
         args: [ --profile, black, --filter-files ]
 
   - repo: https://github.com/psf/black
-    rev: 23.1.0
+    rev: '23.1.0'
     hooks:
       - id: black
         language_version: python3
@@ -32,3 +32,8 @@ repos:
     rev: '6.0.0'
     hooks:
       - id: flake8
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: 'v0.0.245'
+    hooks:
+      - id: ruff
