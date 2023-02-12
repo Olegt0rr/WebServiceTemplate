@@ -1,16 +1,19 @@
 import asyncio
+from typing import TYPE_CHECKING
 
-from aiogram import Bot, Dispatcher
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler
-from aiohttp.web_app import Application
 
 from .bot import create_bot
 from .dispatcher import create_dispatcher
 from .settings import get_telegram_settings
 
+if TYPE_CHECKING:
+    from aiogram import Bot, Dispatcher
+    from aiohttp.web_app import Application
+
 
 def setup_telegram(app: Application) -> None:
-    """Setup app for receiving Telegram updates."""
+    """Set up app for receiving Telegram updates."""
     settings = get_telegram_settings()
     bot = app["bot"] = create_bot()
     dispatcher = app["dispatcher"] = create_dispatcher()

@@ -1,11 +1,13 @@
-from typing import cast
+from typing import TYPE_CHECKING, cast
 
-from aiogram import Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message, User
 
+if TYPE_CHECKING:
+    from aiogram import Dispatcher
 
-async def handle_start(message: Message):
+
+async def handle_start(message: Message) -> None:
     """Handle /start command."""
     user = cast(User, message.from_user)
     await message.answer(f"Hi, {user.full_name}")

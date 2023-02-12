@@ -1,8 +1,11 @@
-from aiogram import Dispatcher
+from typing import TYPE_CHECKING
 
 from . import start
 
+if TYPE_CHECKING:
+    from aiogram import Dispatcher
+
 
 def setup(dispatcher: Dispatcher) -> None:
-    """Setup handlers."""
+    """Set up handlers."""
     start.setup(dispatcher)

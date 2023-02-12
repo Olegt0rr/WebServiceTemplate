@@ -1,21 +1,24 @@
 import logging
+from typing import TYPE_CHECKING
 
 import redis
-from aiogram.fsm.storage.base import BaseStorage
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.storage.redis import DefaultKeyBuilder, RedisStorage
 from redis.asyncio.retry import Retry
 from redis.backoff import FullJitterBackoff
 
+from app.redis.settings import get_redis_settings
+
 from .settings import get_telegram_settings
-from ..redis.settings import get_redis_settings
+
+if TYPE_CHECKING:
+    from aiogram.fsm.storage.base import BaseStorage
 
 logger = logging.getLogger(__name__)
 
 
 def create_storage() -> BaseStorage:
     """Prepare storage for FSM and data bucket."""
-
     redis_settings = get_redis_settings()
     if redis_settings.DSN is None:
         return MemoryStorage()
