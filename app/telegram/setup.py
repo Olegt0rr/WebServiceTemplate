@@ -20,7 +20,7 @@ def setup_telegram(app: Application) -> None:
 
     if settings.WEBHOOK_ENABLED:
         handler = SimpleRequestHandler(dispatcher=dispatcher, bot=bot)
-        handler.register(app, path="/webhook")
+        handler.register(app, path=settings.WEBHOOK_PATH)
     else:
         app.on_startup.append(start_polling)
         app.on_shutdown.append(stop_polling)
