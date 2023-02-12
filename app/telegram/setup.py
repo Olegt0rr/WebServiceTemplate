@@ -24,6 +24,8 @@ def setup_telegram(app: Application) -> None:
     else:
         app.on_startup.append(start_polling)
         app.on_shutdown.append(stop_polling)
+    
+    app.on_shutdown.append(close_storage)
 
 
 async def start_polling(app: Application) -> None:
@@ -39,5 +41,8 @@ async def stop_polling(app: Application) -> None:
     polling_task: asyncio.Task = app["polling_task"]
     polling_task.cancel()
 
+
+async def close_storage(app: Application) -> None:
+    """Graceful storage close."""
     dispatcher: Dispatcher = app["dispatcher"]
     await dispatcher.storage.close()
