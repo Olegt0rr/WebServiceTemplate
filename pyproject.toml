@@ -1,0 +1,70 @@
+[tool.poetry]
+name = "FarmerBot"
+version = "2023.2.1"
+description = "Бот для своего фермерства"
+authors = [
+    "Oleg A. <t0rr@mail.ru>",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiogram = { version = "3.0.0b6", allow-prereleases = true }
+ujson = { version = "~5.7", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
+uvloop = { version = "~0.17", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
+redis = { version = "~4.5", extras = ["hiredis"] }
+backoff = "~2.2"
+
+
+[tool.poetry.dev-dependencies]
+black = { version = "^23.1", extras = ["d"] }
+flake8 = "^6.0"
+isort = "^5.12"
+mypy = "^1.0"
+pre-commit = "^3.0"
+pylint = "^2.16"
+pytest = "^7.2"
+
+[tool.black]
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.tox
+  | venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+
+[tool.pylint.'MASTER']
+extension-pkg-whitelist = "pydantic"
+
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = 88
+disable = "C0114, C0115, C0116, C0415, R0903"
+good-names = "dp, app"  # issue https://github.com/PyCQA/pylint/issues/2018
+
+[tool.mypy]
+warn_redundant_casts = true
+warn_unused_ignores = false
+warn_no_return = true
+warn_unreachable = true
+pretty = true
+
+[[tool.mypy.overrides]]
+module = "*.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
