@@ -1,6 +1,7 @@
 import logging
 
 from aiogram import Bot
+from aiogram.exceptions import TelegramAPIError
 
 from .settings import get_telegram_settings
 
@@ -16,3 +17,12 @@ def create_bot() -> Bot:
     )
     logger.debug("Bot %r created.", bot)
     return bot
+
+
+async def bot_is_available(bot: Bot) -> bool:
+    """Check Telegram Bot API is available for bot."""
+    try:
+        await bot.get_me()
+    except TelegramAPIError:
+        return False
+    return True
