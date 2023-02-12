@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "FarmerBot"
+name = "TelegramBot"
 version = "2023.2.1"
-description = "Бот для своего фермерства"
+description = "Telegram bot"
 authors = [
     "Oleg A. <t0rr@mail.ru>",
 ]
@@ -66,7 +66,7 @@ ignore_errors = true
 
 [tool.ruff]
 select = ["ALL"]
-ignore = ["ANN101", "ANN102", "D100", "D101", "D106", "D104", "D203", "D213"]
+ignore = ["ANN101", "ANN102", "D100", "D101", "D106", "D107", "D104", "D203", "D213"]
 fixable = ["ALL"]
 unfixable = []
 
