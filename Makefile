@@ -4,22 +4,16 @@ pre-commit:
 	pre-commit install
 	pre-commit autoupdate
 
-isort:
-	isort app/
-
 black:
 	black app/
 
 mypy:
 	mypy -p app
 
-pylint:
-	pylint app/
-
 ruff:
-	ruff check app
+	ruff check app --fix
 
-lint: isort black ruff mypy pylint
+lint: black ruff mypy
 
 
 run:

@@ -9,19 +9,6 @@ repos:
       - id: check-added-large-files
       - id: name-tests-test
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.0.0'
-    hooks:
-      - id: mypy
-        args: [ --ignore-missing-imports ]
-        exclude: tests|alembic
-
-  - repo: https://github.com/pycqa/isort
-    rev: '5.12.0'
-    hooks:
-      - id: isort
-        args: [ --profile, black, --filter-files ]
-
   - repo: https://github.com/psf/black
     rev: '23.1.0'
     hooks:
@@ -32,3 +19,10 @@ repos:
     rev: 'v0.0.245'
     hooks:
       - id: ruff
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.0.0'
+    hooks:
+      - id: mypy
+        args: [ --ignore-missing-imports ]
+        exclude: tests|alembic

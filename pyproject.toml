@@ -17,11 +17,8 @@ backoff = "~2.2"
 
 [tool.poetry.dev-dependencies]
 black = { version = "^23.1", extras = ["d"] }
-flake8 = "^6.0"
-isort = "^5.12"
 mypy = "^1.0"
 pre-commit = "^3.0"
-pylint = "^2.16"
 pytest = "^7.2"
 ruff = "^0.0.245"
 
