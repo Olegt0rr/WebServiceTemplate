@@ -13,6 +13,6 @@ async def handle_start(message: Message) -> None:
     await message.answer(f"Hi, {user.full_name}")
 
 
-def setup(dispatcher: Dispatcher) -> None:
+def setup(dispatcher: "Dispatcher") -> None:
     """Register handlers."""
     dispatcher.message.register(handle_start, Command("start"))

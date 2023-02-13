@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-def create_storage() -> BaseStorage:
+def create_storage() -> "BaseStorage":
     """Prepare storage for FSM and data bucket."""
     redis_settings = get_redis_settings()
     if redis_settings.DSN is None:
