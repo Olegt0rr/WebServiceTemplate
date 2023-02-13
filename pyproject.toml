@@ -35,18 +35,6 @@ exclude = '''
 )/
 '''
 
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-
-
-[tool.pylint.'MASTER']
-extension-pkg-whitelist = "pydantic"
-
-[tool.pylint.'MESSAGES CONTROL']
-max-line-length = 88
-disable = "C0114, C0115, C0116, C0415, R0903"
-good-names = "dp, app"  # issue https://github.com/PyCQA/pylint/issues/2018
 
 [tool.mypy]
 warn_redundant_casts = true
