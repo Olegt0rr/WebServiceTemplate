@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from . import k8s
+from . import health
 
 if TYPE_CHECKING:
     from aiohttp.web_app import Application
@@ -8,4 +8,4 @@ if TYPE_CHECKING:
 
 def setup_routes(app: "Application") -> None:
     """Register handlers."""
-    k8s.setup(app)
+    health.setup(app)
