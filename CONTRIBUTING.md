@@ -98,16 +98,11 @@ def collect_integers(a: int, b: int) -> List[int]:
 
 - [black](https://github.com/python/black/) to make sure your code is correctly formatted.
 
-- [isort](https://github.com/timothycrosley/isort) to maintain consistent imports.
-
-- [pylint](https://www.pylint.org/) with the `pylint-django` plugin to catch errors in your code.
-
-- [flake8](https://flake8.pycqa.org/en/latest/) to make sure your code adheres to PEP 8.
-
-- [pydocstyle](http://pydocstyle.pycqa.org/en/latest/) to check that your docstrings are properly
-  formatted.
+- [ruff](https://github.com/charliermarsh/ruff) used to replace Flake8 (plus dozens of plugins),
+isort, pydocstyle, yesqa, eradicate, pyupgrade, and autoflake
 
 - [mypy](https://github.com/python/mypy) to check that your types correctly assigned and used.
+
 
 ## EditorConfig
 
