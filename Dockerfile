@@ -64,5 +64,6 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 # copy app files
 WORKDIR $APP_PATH
 COPY app ./app
+COPY health.py ./
 
 CMD python -m app

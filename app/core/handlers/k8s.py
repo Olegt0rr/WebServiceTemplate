@@ -18,8 +18,8 @@ async def handle_liveness(request: "Request") -> "Response":
         "telegram": bot_is_available(request.app["bot"]),
     }
     results = await _process_checks(checks)
-    response = _prepare_response(results)
-    return web.json_response(response)
+    status, response = _prepare_response(results)
+    return web.json_response(response, status=status)
 
 
 async def handle_readiness(request: "Request") -> "Response":
@@ -28,8 +28,8 @@ async def handle_readiness(request: "Request") -> "Response":
         "telegram": bot_is_available(request.app["bot"]),
     }
     results = await _process_checks(checks)
-    response = _prepare_response(results)
-    return web.json_response(response)
+    status, response = _prepare_response(results)
+    return web.json_response(response, status=status)
 
 
 async def _process_checks(
@@ -39,11 +39,11 @@ async def _process_checks(
     return {name: await check for name, check in checks.items()}
 
 
-def _prepare_response(results: dict[str, bool]) -> dict:
+def _prepare_response(results: dict[str, bool]) -> tuple[int, dict]:
     """Prepare result response."""
     if all(results.items()):
-        return {"status": "UP"}
-    return {"status": "DOWN", "detail": results}
+        return 200, {"status": "UP"}
+    return 400, {"status": "DOWN", "detail": results}
 
 
 def setup(app: "Application") -> None:

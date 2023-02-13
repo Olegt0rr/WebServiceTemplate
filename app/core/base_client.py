@@ -36,11 +36,11 @@ class BaseClient:
         url: "Union[str, URL]",
         params: "Optional[Mapping[str, str]]" = None,
         json: "Mapping[str, str] | None" = None,
-    ) -> dict[str, Any]:
+    ) -> tuple[int, dict[str, Any]]:
         """Make request and return decoded json response."""
         session = await self._get_session()
         async with session.request(method, url, params=params, json=json) as response:
-            return await response.json(loads=loads)
+            return response.status, await response.json(loads=loads)
 
     async def close(self) -> None:
         """Graceful session close."""

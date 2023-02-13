@@ -11,9 +11,14 @@ services:
       redis:
         condition: service_healthy
     env_file:
-      - .env
+      - test.env
     environment:
       - REDIS_HOST=redis
+    healthcheck:
+      test: python3 health.py || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:6
@@ -33,4 +38,3 @@ services:
 volumes:
   redis-data:
     driver: "local"
-
