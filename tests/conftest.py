@@ -1,3 +1,4 @@
+import asyncio
 import ssl
 
 import pytest
@@ -14,3 +15,4 @@ async def http_client_fixture() -> ClientSession:
     )
     yield session
     await session.close()
+    await asyncio.sleep(0.2)
