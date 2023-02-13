@@ -6,6 +6,6 @@ if TYPE_CHECKING:
     from aiogram import Dispatcher
 
 
-def setup(dispatcher: Dispatcher) -> None:
+def setup(dispatcher: "Dispatcher") -> None:
     """Set up handlers."""
     start.setup(dispatcher)
