@@ -8,7 +8,7 @@ def app_factory() -> Application:
     """Create web app."""
     app = Application()
 
-    setup_routes(app)
     setup_telegram(app)
+    setup_routes(app)
 
     return app
