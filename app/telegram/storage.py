@@ -1,13 +1,13 @@
 import logging
 from typing import TYPE_CHECKING
 
-import redis
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.storage.redis import DefaultKeyBuilder, RedisStorage
+
+import redis
+from app.redis.settings import get_redis_settings
 from redis.asyncio.retry import Retry
 from redis.backoff import FullJitterBackoff
-
-from app.redis.settings import get_redis_settings
 
 from .settings import get_telegram_settings
 

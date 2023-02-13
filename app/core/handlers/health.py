@@ -14,9 +14,12 @@ if TYPE_CHECKING:
 
 async def handle_liveness(request: "Request") -> "Response":
     """Handle liveness request."""
-    checks: dict[str, Coroutine[Any, Any, bool]] = {
-        "telegram": bot_is_available(request.app["bot"]),
-    }
+    app = request.app
+    checks: dict[str, Coroutine[Any, Any, bool]] = {}
+
+    if "bot" in app:
+        checks["bot"] = bot_is_available(app["bot"])
+
     results = await _process_checks(checks)
     status, response = _prepare_response(results)
     return web.json_response(response, status=status)
@@ -24,9 +27,12 @@ async def handle_liveness(request: "Request") -> "Response":
 
 async def handle_readiness(request: "Request") -> "Response":
     """Handle readiness request."""
-    checks: dict[str, Coroutine[Any, Any, bool]] = {
-        "telegram": bot_is_available(request.app["bot"]),
-    }
+    app = request.app
+    checks: dict[str, Coroutine[Any, Any, bool]] = {}
+
+    if "bot" in app:
+        checks["bot"] = bot_is_available(app["bot"])
+
     results = await _process_checks(checks)
     status, response = _prepare_response(results)
     return web.json_response(response, status=status)
