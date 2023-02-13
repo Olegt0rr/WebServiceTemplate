@@ -54,7 +54,7 @@ ignore_errors = true
 
 [tool.ruff]
 select = ["ALL"]
-ignore = ["ANN101", "ANN102", "D100", "D101", "D106", "D107", "D104", "D203", "D213"]
+ignore = ["ANN101", "ANN102", "D100", "D101", "D106", "D107", "D104", "D203", "D213", "INP001"]
 fixable = ["ALL"]
 unfixable = []
 
@@ -80,7 +80,7 @@ exclude = [
     "node_modules",
     "venv",
 ]
-per-file-ignores = { "tests/"=["INP001"] }
+per-file-ignores = {}
 
 # Same as Black.
 line-length = 88
