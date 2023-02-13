@@ -7,7 +7,7 @@ authors = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 aiogram = { version = "3.0.0b6", allow-prereleases = true }
 ujson = { version = "~5.7", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
 uvloop = { version = "~0.17", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
@@ -20,7 +20,7 @@ black = { version = "^23.1", extras = ["d"] }
 mypy = "^1.0"
 pre-commit = "^3.0"
 pytest = "^7.2"
-ruff = "^0.0.245"
+ruff = "^0.0"
 
 [tool.black]
 exclude = '''
