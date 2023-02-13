@@ -29,17 +29,16 @@ class HealthCheck(BaseClient):
         return 1
 
 
-async def main() -> None:
+async def main() -> int:
     """App entrypoint."""
     checker = HealthCheck()
     try:
-        exit_code = await checker.check_liveness()
+        return await checker.check_liveness()
     finally:
         await checker.close()
-
-    sys.exit(exit_code)
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    asyncio.run(main())
+    exit_code = asyncio.run(main())
+    sys.exit(exit_code)
