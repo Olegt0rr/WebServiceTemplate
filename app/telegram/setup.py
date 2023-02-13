@@ -6,9 +6,11 @@ from aiogram.webhook.aiohttp_server import SimpleRequestHandler
 from .bot import create_bot
 from .dispatcher import create_dispatcher
 from .settings import get_telegram_settings
+from .storage import create_storage
 
 if TYPE_CHECKING:
     from aiogram import Bot, Dispatcher
+    from aiogram.fsm.storage.base import BaseStorage
     from aiohttp.web_app import Application
 
 
@@ -16,7 +18,8 @@ def setup_telegram(app: "Application") -> None:
     """Set up app for receiving Telegram updates."""
     settings = get_telegram_settings()
     bot = app["bot"] = create_bot()
-    dispatcher = app["dispatcher"] = create_dispatcher()
+    storage = app["storage"] = create_storage()
+    dispatcher = app["dispatcher"] = create_dispatcher(storage)
 
     if settings.WEBHOOK_ENABLED:
         handler = SimpleRequestHandler(dispatcher=dispatcher, bot=bot)
@@ -44,5 +47,5 @@ async def stop_polling(app: "Application") -> None:
 
 async def close_storage(app: "Application") -> None:
     """Graceful storage close."""
-    dispatcher: Dispatcher = app["dispatcher"]
-    await dispatcher.storage.close()
+    storage: BaseStorage = app["storage"]
+    await storage.close()
