@@ -80,7 +80,7 @@ exclude = [
     "node_modules",
     "venv",
 ]
-per-file-ignores = { "tests/conftest.py"=["INP001"] }
+per-file-ignores = { "tests/"=["INP001"] }
 
 # Same as Black.
 line-length = 88
