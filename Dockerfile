@@ -1,4 +1,5 @@
 FROM python:3.11-slim as python-base
+
 ARG POETRY_VERSION=1.3.2
 ENV PYTHONUNBUFFERED=1 \
     # prevents python creating .pyc as files
@@ -63,7 +64,8 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 # copy app files
 WORKDIR $APP_PATH
+COPY tools/check_health.py ./
 COPY app ./app
-COPY health.py ./
 
+# good luck! :)
 CMD python -m app

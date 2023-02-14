@@ -15,7 +15,7 @@ services:
     environment:
       - REDIS_HOST=redis
     healthcheck:
-      test: python3 health.py || exit 1
+      test: python3 check_health.py || exit 1
       interval: 10s
       timeout: 5s
       retries: 5
