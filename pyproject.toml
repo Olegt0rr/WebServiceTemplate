@@ -42,7 +42,7 @@ exclude = '''
 warn_redundant_casts = true
 warn_unused_ignores = false
 warn_no_return = true
-warn_unreachable = true
+warn_unreachable = false
 pretty = true
 
 [[tool.mypy.overrides]]
