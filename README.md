@@ -1,10 +1,15 @@
-# Web Service Template
+Web Service Template
+===
+
+[![Python](https://img.shields.io/badge/python-^3.11-blue)](https://www.python.org/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Code linter: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v1.json)](https://github.com/charliermarsh/ruff)
+[![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
+---
 
 Simple aiohttp-based webservice template.
-
 Extendable.
 Scalable.
-
 
 ---
 
@@ -30,10 +35,10 @@ You easily can add any other service :)
 
 ### Utils
 
-- pydantic settings
-- uvloop
-- ujson
-- backoff
+- **pydantic settings** – ready to read .env / docker secrets
+- **uvloop** – speed up asyncio event loop
+- **ujson** – speed up json (de)serialization
+- **backoff** – retry on network and other failures
 
 ---
 
