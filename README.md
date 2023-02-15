@@ -2,17 +2,28 @@
 
 ## Consists of
 
-- core web service (based on aiohttp)
-- redis service (based on redis.asyncio)
-- telegram service (based on aiogram)
+### Core
 
-And you easily can add any other service :)
+Webserver and client are based on [aiohttp](https://github.com/aio-libs/aiohttp).
 
-### Additional utils
+### Redis
+
+Service for cache and states based on [redis.asyncio](https://github.com/redis/redis-py)
+
+### Telegram
+
+Telegram API client based on [aiogram v3](https://github.com/aiogram/aiogram/tree/dev-3.x)
+
+### Other services
+
+You easily can add any other service :)
+
+### Utils
 
 - pydantic settings
 - uvloop
 - ujson
+- backoff
 
 ## How to launch
 
