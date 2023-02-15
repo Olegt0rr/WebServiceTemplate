@@ -17,6 +17,7 @@ if TYPE_CHECKING:
 def setup_telegram(app: "Application") -> None:
     """Set up app for receiving Telegram updates."""
     settings = get_telegram_settings()
+
     bot = app["bot"] = create_bot()
     redis = app.get("redis")
     storage = app["storage"] = create_storage(redis)

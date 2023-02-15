@@ -99,7 +99,7 @@ def collect_integers(a: int, b: int) -> List[int]:
 - [black](https://github.com/python/black/) to make sure your code is correctly formatted.
 
 - [ruff](https://github.com/charliermarsh/ruff) used to replace Flake8 (plus dozens of plugins),
-isort, pydocstyle, yesqa, eradicate, pyupgrade, and autoflake
+isort, pydocstyle, yesqa, eradicate, pyupgrade, and autoflake.
 
 - [mypy](https://github.com/python/mypy) to check that your types correctly assigned and used.
 
