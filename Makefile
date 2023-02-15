@@ -12,6 +12,8 @@ mypy:
 
 ruff:
 	ruff check app --fix
+	ruff check tools --fix
+	ruff check tests --fix
 
 lint: black ruff mypy
 

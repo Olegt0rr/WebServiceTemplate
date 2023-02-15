@@ -55,7 +55,7 @@ ignore_errors = true
 
 
 [tool.ruff]
-src = ["app", "tests"]
+src = ["app", "tools", "tests"]
 select = ["ALL"]
 ignore = ["ANN101", "ANN102", "D100", "D101", "D106", "D107", "D104", "D203", "D213"]
 fixable = ["ALL"]
