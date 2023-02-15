@@ -8,6 +8,21 @@ from app.core.settings import WebAppSettings
 
 
 class HealthCheck(BaseClient):
+    """Represents health checker.
+
+    How to use with docker-compose:
+    ```yaml
+    services:
+      app:
+        ...
+        healthcheck:
+          test: python3 check_health.py || exit 1
+          interval: 10s
+          timeout: 5s
+          retries: 5
+    ```
+    """
+
     def __init__(self) -> None:
         settings = WebAppSettings()
         super().__init__(f"http://{settings.HOST}:{settings.PORT}")
