@@ -51,4 +51,7 @@ class BaseClient:
             return
 
         await self._session.close()
-        await asyncio.sleep(0.2)
+
+        # Wait 250 ms for the underlying SSL connections to close
+        # https://docs.aiohttp.org/en/stable/client_advanced.html#graceful-shutdown
+        await asyncio.sleep(0.25)
