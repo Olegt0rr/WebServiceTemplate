@@ -44,6 +44,14 @@ You easily can add any other service :)
 
 ## How to launch
 
+### 1. CREATE / COPY CONFING
+
+Example of .env config located in /examples folder. \
+Copy it to the root of the project or copy into your app manager (e.g. portainer) \
+Don't forget to edit it :)
+
+### 2. LAUNCH THE APP WITH:
+
 ### Pure python
 
 ```bash
