@@ -21,12 +21,15 @@ class BaseClient:
 
     async def _get_session(self) -> ClientSession:
         """Get aiohttp session with cache."""
-        if not self._session:
+        if self._session is None:
+            ssl_context = ssl.SSLContext()
+            connector = TCPConnector(ssl_context=ssl_context)
             self._session = ClientSession(
                 base_url=self._base_url,
-                connector=TCPConnector(ssl_context=ssl.SSLContext()),
+                connector=connector,
                 json_serialize=dumps,
             )
+
         return self._session
 
     @backoff.on_exception(backoff.expo, ClientError, max_time=60)
