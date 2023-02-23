@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import asyncio
 import logging
 import ssl
-from typing import TYPE_CHECKING, Any, Optional, Union
+from typing import TYPE_CHECKING, Any
 
 import backoff
 from aiohttp import ClientError, ClientSession, TCPConnector
@@ -16,7 +18,7 @@ if TYPE_CHECKING:
 class BaseClient:
     """Represents base API client."""
 
-    def __init__(self, base_url: "Union[str, URL]") -> None:
+    def __init__(self, base_url: str | URL) -> None:
         self._base_url = base_url
         self._session: ClientSession | None = None
         self.log = logging.getLogger(self.__class__.__name__)
@@ -38,9 +40,9 @@ class BaseClient:
     async def _make_request(
         self,
         method: str,
-        url: "Union[str, URL]",
-        params: "Optional[Mapping[str, str]]" = None,
-        json: "Mapping[str, str] | None" = None,
+        url: str | URL,
+        params: Mapping[str, str] | None = None,
+        json: Mapping[str, str] | None = None,
     ) -> tuple[int, dict[str, Any]]:
         """Make request and return decoded json response."""
         session = await self._get_session()

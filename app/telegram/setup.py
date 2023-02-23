@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 from typing import TYPE_CHECKING
 
@@ -14,7 +16,7 @@ if TYPE_CHECKING:
     from aiohttp.web_app import Application
 
 
-def setup_telegram(app: "Application") -> None:
+def setup_telegram(app: Application) -> None:
     """Set up app for receiving Telegram updates."""
     settings = get_telegram_settings()
 
@@ -33,7 +35,7 @@ def setup_telegram(app: "Application") -> None:
     app.on_shutdown.append(close_storage)
 
 
-async def start_polling(app: "Application") -> None:
+async def start_polling(app: Application) -> None:
     """Start Telegram polling on app startup."""
     dispatcher: Dispatcher = app["dispatcher"]
     bot: Bot = app["bot"]
@@ -41,13 +43,13 @@ async def start_polling(app: "Application") -> None:
     app["polling_task"] = asyncio.create_task(polling_coroutine)
 
 
-async def stop_polling(app: "Application") -> None:
+async def stop_polling(app: Application) -> None:
     """Stop Telegram polling on app shutdown."""
     polling_task: asyncio.Task = app["polling_task"]
     polling_task.cancel()
 
 
-async def close_storage(app: "Application") -> None:
+async def close_storage(app: Application) -> None:
     """Graceful storage close."""
     storage: BaseStorage = app["storage"]
     await storage.close()

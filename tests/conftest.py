@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 from typing import TYPE_CHECKING
 
@@ -11,16 +13,16 @@ if TYPE_CHECKING:
 
 
 @pytest.fixture(name="app", scope="session")
-def app_fixture() -> "Application":
+def app_fixture() -> Application:
     """Prepare default web app."""
     return app_factory()
 
 
 @pytest.fixture(name="http_client")
 async def http_client_fixture(
-    app: "Application",
-    aiohttp_client: "AiohttpClient",
-) -> "ClientSession":
+    app: Application,
+    aiohttp_client: AiohttpClient,
+) -> ClientSession:
     """Prepare client session for app."""
     client = await aiohttp_client(app)
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 import logging
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.storage.redis import DefaultKeyBuilder, RedisStorage
@@ -14,7 +16,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-def create_storage(redis: "Optional[Redis]" = None) -> "BaseStorage":
+def create_storage(redis: Redis | None = None) -> BaseStorage:
     """Prepare storage for FSM and data bucket."""
     if redis is None:
         return MemoryStorage()
