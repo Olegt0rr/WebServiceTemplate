@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any
 
 from aiohttp import web
@@ -12,7 +14,7 @@ if TYPE_CHECKING:
     from aiohttp.web_response import Response
 
 
-async def handle_liveness(request: "Request") -> "Response":
+async def handle_liveness(request: Request) -> Response:
     """Handle liveness request."""
     app = request.app
     checks: dict[str, Coroutine[Any, Any, bool]] = {}
@@ -25,7 +27,7 @@ async def handle_liveness(request: "Request") -> "Response":
     return web.json_response(response, status=status)
 
 
-async def handle_readiness(request: "Request") -> "Response":
+async def handle_readiness(request: Request) -> Response:
     """Handle readiness request."""
     app = request.app
     checks: dict[str, Coroutine[Any, Any, bool]] = {}
@@ -39,7 +41,7 @@ async def handle_readiness(request: "Request") -> "Response":
 
 
 async def _process_checks(
-    checks: "dict[str, Coroutine[Any, Any, bool]]",
+    checks: dict[str, Coroutine[Any, Any, bool]],
 ) -> dict[str, bool]:
     """Process all checks and return results."""
     return {name: await check for name, check in checks.items()}
@@ -52,7 +54,7 @@ def _prepare_response(results: dict[str, bool]) -> tuple[int, dict]:
     return 400, {"status": "DOWN", "detail": results}
 
 
-def setup(app: "Application") -> None:
+def setup(app: Application) -> None:
     """Register handlers."""
     app.router.add_get("/health/liveness", handle_liveness)
     app.router.add_get("/health/readiness", handle_readiness)
