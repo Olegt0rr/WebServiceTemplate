@@ -51,7 +51,7 @@ def _prepare_response(results: dict[str, bool]) -> tuple[int, dict]:
     """Prepare result response."""
     if all(results.items()):
         return 200, {"status": "UP"}
-    return 400, {"status": "DOWN", "detail": results}
+    return 500, {"status": "DOWN", "detail": results}
 
 
 def setup(app: Application) -> None:
