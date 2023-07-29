@@ -1,11 +1,11 @@
 from functools import cache
 
-from pydantic import BaseSettings, Field, RedisDsn
+from pydantic import Field, RedisDsn
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class RedisSettings(BaseSettings):
-    class Config:
-        env_prefix = "REDIS_"
+    model_config = SettingsConfigDict(env_prefix="REDIS_")
 
     DSN: RedisDsn = Field("redis://localhost")
 

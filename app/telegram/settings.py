@@ -1,13 +1,13 @@
 from functools import cache
 
-from pydantic import BaseSettings, SecretStr
+from pydantic import SecretStr
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class TelegramSettings(BaseSettings):
     """Represents Telegram settings."""
 
-    class Config:
-        env_prefix = "TELEGRAM_"
+    model_config = SettingsConfigDict(env_prefix="TELEGRAM_")
 
     TOKEN: SecretStr
     SKIP_UPDATES: bool = False

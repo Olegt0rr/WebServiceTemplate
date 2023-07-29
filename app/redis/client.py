@@ -18,7 +18,7 @@ def create_redis() -> Redis:
     """
     redis_settings = get_redis_settings()
     client = Redis.from_url(
-        url=redis_settings.DSN,
+        url=str(redis_settings.DSN),
         decode_responses=True,
         health_check_interval=30,
         retry_on_timeout=True,

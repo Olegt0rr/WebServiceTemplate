@@ -8,18 +8,19 @@ authors = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aiogram = { version = "3.0.0b7", allow-prereleases = true }
-pydantic = { version = "~1.10", extras = ["dotenv"] }
-ujson = { version = "~5.7", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
+aiogram = { version = "3.0.0b8", allow-prereleases = true }
+pydantic = { version = "~2.0", extras = ["dotenv"] }
+ujson = { version = "~5.8", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
 uvloop = { version = "~0.17", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
-redis = { version = "~4.5", extras = ["hiredis"] }
+redis = { version = "~4.6", extras = ["hiredis"] }
 backoff = "~2.2"
+pydantic-settings = "^2.0.2"
 
 
 [tool.poetry.dev-dependencies]
-black = { version = "^23.1", extras = ["d"] }
-mypy = "^1.0"
-pre-commit = "^3.0"
+black = { version = "^23.7", extras = ["d"] }
+mypy = "^1.4"
+pre-commit = "^3.3"
 pytest = "^7.2"
 pytest-aiohttp = "^1.0"
 ruff = "^0.0"
