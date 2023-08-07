@@ -1,6 +1,6 @@
-FROM python:3.11-slim as python-base
+FROM python:3.11-slim AS python-base
 
-ARG POETRY_VERSION=1.3.2
+ARG POETRY_VERSION=1.5.1
 ENV PYTHONUNBUFFERED=1 \
     # prevents python creating .pyc as files
     PYTHONDONTWRITEBYTECODE=1 \
@@ -32,14 +32,13 @@ ENV PYTHONUNBUFFERED=1 \
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 
-FROM python-base as builder-base
+FROM python-base AS builder-base
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
         # for installing poetry
         curl \
         # for building python deps
         build-essential \
-        python-setuptools \
     && apt-get clean
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
@@ -53,7 +52,7 @@ COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-dev
 
 
-FROM python-base as production
+FROM python-base AS production
 
 # vars
 ARG APP_ENV=production
