@@ -18,7 +18,7 @@ services:
       retries: 5
 
   redis:
-    image: redis:6
+    image: redis:7
     restart: on-failure
     volumes:
       - redis-data:/data
