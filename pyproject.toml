@@ -8,18 +8,17 @@ authors = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aiogram = { version = "3.0.0b9", allow-prereleases = true }
-pydantic = { version = "^2", extras = ["dotenv"] }
-ujson = { version = "~5.8", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
+aiogram = { version = "3.0.0rc1", allow-prereleases = true }
 uvloop = { version = "~0.17", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
 redis = { version = "~4.6", extras = ["hiredis"] }
 backoff = "~2.2"
-pydantic-settings = "^2.0.2"
+pydantic-settings = " ~2.0"
+msgspec = "~0.18"
 
 
 [tool.poetry.dev-dependencies]
 black = { version = "^23.7", extras = ["d"] }
-mypy = "^1.4"
+mypy = "^1.5"
 pre-commit = "^3.3"
 pytest = "^7.2"
 pytest-aiohttp = "^1.0"
