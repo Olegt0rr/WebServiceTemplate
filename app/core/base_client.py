@@ -33,7 +33,7 @@ class BaseClient:
             self._session = ClientSession(
                 base_url=self._base_url,
                 connector=connector,
-                json_serialize=lambda obj: str(encoder.encode(obj)),
+                json_serialize=lambda obj: str(encoder.encode(obj), "utf-8"),
             )
 
         return self._session
