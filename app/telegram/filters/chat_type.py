@@ -37,7 +37,7 @@ class ChatType(BaseFilter):
     @staticmethod
     def _check_type(chat_type: str | set[str]) -> None:
         """Raise error if chat_type is not supported."""
-        if not isinstance(chat_type, (str, set)):
+        if not isinstance(chat_type, str | set):
             msg = (
                 f"Unsupported chat type: {type(chat_type).__name__}. "
                 f"Use `str` or `set` instead."
