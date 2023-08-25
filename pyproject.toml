@@ -8,9 +8,9 @@ authors = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aiogram = { version = "3.0.0rc1", allow-prereleases = true }
+aiogram = { version = "3.0.0rc2", allow-prereleases = true }
 uvloop = { version = "~0.17", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
-redis = { version = "~4.6", extras = ["hiredis"] }
+redis = { version = "~5.0", extras = ["hiredis"] }
 backoff = "~2.2"
 pydantic-settings = " ~2.0"
 msgspec = "~0.18"
