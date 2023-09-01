@@ -26,7 +26,7 @@ class BaseClient:
 
     async def _get_session(self) -> ClientSession:
         """Get aiohttp session with cache."""
-        if self._session is None:
+        if self._session is None or self._session.closed:
             ssl_context = ssl.SSLContext()
             connector = TCPConnector(ssl_context=ssl_context)
             encoder = Encoder()
