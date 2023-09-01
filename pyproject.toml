@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "TelegramBot"
-version = "2023.2.1"
+version = "2023.9.1"
 description = "Telegram bot"
 authors = [
     "Oleg A. <t0rr@mail.ru>",
@@ -8,7 +8,7 @@ authors = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aiogram = { version = "3.0.0rc2", allow-prereleases = true }
+aiogram = "~3.0"
 uvloop = { version = "~0.17", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
 redis = { version = "~5.0", extras = ["hiredis"] }
 backoff = "~2.2"
