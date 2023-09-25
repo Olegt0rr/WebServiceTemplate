@@ -9,6 +9,7 @@ authors = [
 [tool.poetry.dependencies]
 python = "^3.10"
 aiogram = "~3.0"
+aiohttp = { version = "~3.8.5", extras = ["speedups"] }
 uvloop = { version = "~0.17", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
 redis = { version = "~5.0", extras = ["hiredis"] }
 backoff = "~2.2"
