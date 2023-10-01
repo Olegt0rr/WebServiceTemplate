@@ -1,6 +1,6 @@
 FROM python:3.11-slim AS python-base
 
-ARG POETRY_VERSION=1.5.1
+ARG POETRY_VERSION=1.6.1
 ENV PYTHONUNBUFFERED=1 \
     # prevents python creating .pyc as files
     PYTHONDONTWRITEBYTECODE=1 \
