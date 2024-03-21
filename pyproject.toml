@@ -18,7 +18,7 @@ msgspec = "~0.18"
 
 
 [tool.poetry.dev-dependencies]
-black = { version = "^23.7", extras = ["d"] }
+black = { version = "^24.3", extras = ["d"] }
 mypy = "^1.5"
 pre-commit = "^3.3"
 pytest = "^7.2"
