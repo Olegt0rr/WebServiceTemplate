@@ -21,7 +21,9 @@ def create_redis() -> Redis:
         url=str(redis_settings.DSN),
         decode_responses=True,
         health_check_interval=30,
-        retry_on_timeout=True,
+        # Note: no `retry_on_timeout=True` — it is covered by `retry_on_error`
+        # below, and redis-py mutates the shared `retry_on_error` list in place
+        # on every new connection when `retry_on_timeout` is set.
         retry_on_error=[
             redis.exceptions.ConnectionError,
             redis.exceptions.TimeoutError,

@@ -1,45 +1,39 @@
-[tool.poetry]
-name = "TelegramBot"
+[project]
+name = "telegram-bot"
 version = "2023.9.1"
 description = "Telegram bot"
 authors = [
-    "Oleg A. <t0rr@mail.ru>",
+    { name = "Oleg A.", email = "t0rr@mail.ru" },
+]
+requires-python = ">=3.11,<3.15"
+dependencies = [
+    "aiogram>=3.31,<4",
+    "aiohttp[speedups]>=3.12,<4",
+    "uvloop>=0.22,<0.23 ; sys_platform != 'win32' and implementation_name == 'cpython'",
+    "redis[hiredis]>=6.4,<7",
+    "backoff>=2.2,<3",
+    # pydantic is imported directly (SecretStr, RedisDsn); >=2.10 is required
+    # for constructible URL types like RedisDsn("redis://localhost").
+    "pydantic>=2.10,<3",
+    "pydantic-settings>=2.15,<3",
+    "msgspec>=0.21,<0.22",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-aiogram = "~3.1"
-aiohttp = { version = "~3.8.6", extras = ["speedups"] }
-uvloop = { version = "~0.17", markers = "sys_platform != 'win32' and implementation_name == 'cpython'" }
-redis = { version = "~5.0", extras = ["hiredis"] }
-backoff = "~2.2"
-pydantic-settings = " ~2.0"
-msgspec = "~0.18"
+[dependency-groups]
+dev = [
+    "mypy>=2.3,<3",
+    "pre-commit>=4.6,<5",
+    "pytest>=9.1,<10",
+    "pytest-aiohttp>=1.1,<2",
+    "ruff>=0.16,<0.17",
+]
 
-
-[tool.poetry.dev-dependencies]
-black = { version = "^24.3", extras = ["d"] }
-mypy = "^1.5"
-pre-commit = "^3.3"
-pytest = "^7.2"
-pytest-aiohttp = "^1.0"
-ruff = "^0.0"
-
-[tool.black]
-exclude = '''
-/(
-    \.git
-  | \.mypy_cache
-  | \.pytest_cache
-  | \.tox
-  | venv
-  | build
-  | dist
-)/
-'''
-
+[tool.uv]
+# The project is an application, not an installable package.
+package = false
 
 [tool.mypy]
+plugins = ["pydantic.mypy"]
 warn_redundant_casts = true
 warn_unused_ignores = false
 warn_no_return = true
@@ -56,11 +50,9 @@ ignore_errors = true
 
 
 [tool.ruff]
-src = ["app", "tools", "tests"]
-select = ["ALL"]
-ignore = ["ANN101", "ANN102", "D100", "D101", "D106", "D107", "D104", "D203", "D213", "RUF001", "RUF002", "RUF003", "S101", "PT015", "PT017", "B011"]
-fixable = ["ALL"]
-unfixable = []
+# The project root is the import root: keeps `redis`/`telegram` from PyPI
+# from being misclassified as first-party (they'd shadow app/redis, app/telegram).
+src = ["."]
 
 # Exclude a variety of commonly ignored directories.
 exclude = [
@@ -85,30 +77,33 @@ exclude = [
     "venv",
 ]
 
-# Same as Black.
 line-length = 88
-
-# Allow unused variables when underscore-prefixed.
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 # Assume Python 3.11.
 target-version = "py311"
 
-[tool.ruff.mccabe]
+[tool.ruff.lint]
+select = ["ALL"]
+# COM812 conflicts with the ruff formatter.
+ignore = ["COM812", "CPY001", "D100", "D101", "D106", "D107", "D104", "D203", "D213", "RUF001", "RUF002", "RUF003", "S101", "PT015", "PT017", "B011"]
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
 
-[tool.ruff.flake8-type-checking]
+[tool.ruff.lint.flake8-type-checking]
 strict = true
 
-[tool.ruff.per-file-ignores]
-"tests/*" = ["S101", "INP001"]
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S105", "S106", "ARG001", "INP001"]
 "tools/*" = ["INP001"]
-
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+pythonpath = ["."]
