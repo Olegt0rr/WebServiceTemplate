@@ -29,7 +29,7 @@ class BaseClient:
         if self._session is None or self._session.closed:
             ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
             ssl_context.load_default_certs()
-            connector = TCPConnector(ssl_context=ssl_context)
+            connector = TCPConnector(ssl=ssl_context)
             encoder = Encoder()
             self._session = ClientSession(
                 base_url=self._base_url,

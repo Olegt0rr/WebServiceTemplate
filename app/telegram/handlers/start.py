@@ -3,16 +3,15 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, cast
 
 from aiogram.filters import Command
-from aiogram.types import User
 
 if TYPE_CHECKING:
     from aiogram import Dispatcher
-    from aiogram.types import Message
+    from aiogram.types import Message, User
 
 
 async def handle_start(message: Message) -> None:
     """Handle /start command."""
-    user = cast(User, message.from_user)
+    user = cast("User", message.from_user)
     await message.answer(f"Hi, {user.full_name}")
 
 

@@ -10,7 +10,6 @@ from .settings import get_telegram_settings
 
 if TYPE_CHECKING:
     from aiogram.fsm.storage.base import BaseStorage
-
     from redis.asyncio import Redis
 
 logger = logging.getLogger(__name__)

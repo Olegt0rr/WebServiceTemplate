@@ -2,32 +2,26 @@
 
 ## Managing dependencies
 
-### Poetry
+### uv
 
 To guarantee repeatable installations, all project dependencies are managed
-using [Poetry](https://poetry.eustace.io/). The project’s direct dependencies are listed
-in `pyproject.toml`. Running `poetry lock` generates `poetry.lock` which has all versions pinned.
+using [uv](https://docs.astral.sh/uv/). The project’s direct dependencies are listed
+in `pyproject.toml`. Running `uv lock` generates `uv.lock` which has all versions pinned.
 
-You can install Poetry by using `pip install --pre poetry` or by following the official
-installation guide [here](https://github.com/sdispater/poetry#installation).
+You can install uv by following the official
+installation guide [here](https://docs.astral.sh/uv/getting-started/installation/).
 
-If you're using a [PyCharm](https://www.jetbrains.com/pycharm/), also install
-a [Poetry Plugin](https://plugins.jetbrains.com/plugin/14307-poetry).
+If you're using a [PyCharm](https://www.jetbrains.com/pycharm/), recent versions
+support uv environments out of the box.
 
 
 ## Coding style
 
 Project uses various tools to maintain a common coding style and help with development. To
-install all the development tools, run the following commands:
+install all the development tools (they live in the `dev` dependency group), run:
 
 ```shell
-python -m pip install -r requirements_dev.txt
-```
-
-or use `poetry`:
-
-```shell
-poetry install
+uv sync
 ```
 
 ### Pre-commit
@@ -79,7 +73,7 @@ docs: add profile description
 ### Formatting
 
 Project has a strict formatting policy enforced by
-the [black formatting tool](https://github.com/python/black).
+the [ruff formatter](https://docs.astral.sh/ruff/formatter/).
 
 ### Typing
 
@@ -96,10 +90,9 @@ def collect_integers(a: int, b: int) -> List[int]:
 
 ### Linters
 
-- [black](https://github.com/python/black/) to make sure your code is correctly formatted.
-
-- [ruff](https://github.com/charliermarsh/ruff) used to replace Flake8 (plus dozens of plugins),
-isort, pydocstyle, yesqa, eradicate, pyupgrade, and autoflake.
+- [ruff](https://github.com/astral-sh/ruff) used as formatter (a drop-in replacement for black)
+and as linter, replacing Flake8 (plus dozens of plugins), isort, pydocstyle, yesqa, eradicate,
+pyupgrade, and autoflake.
 
 - [mypy](https://github.com/python/mypy) to check that your types correctly assigned and used.
 

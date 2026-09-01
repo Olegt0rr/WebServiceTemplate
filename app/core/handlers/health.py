@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import asyncio
+from http import HTTPStatus
 from typing import TYPE_CHECKING, Any
 
 from aiohttp import web
@@ -16,20 +18,16 @@ if TYPE_CHECKING:
 
 async def handle_liveness(request: Request) -> Response:
     """Handle liveness request."""
-    app = request.app
-    checks: dict[str, Coroutine[Any, Any, bool]] = {}
-
-    if "bot" in app:
-        checks["bot"] = bot_is_available(app["bot"])
-
-    results = await _process_checks(checks)
-    status, response = _prepare_response(results)
-    return web.json_response(response, status=status)
+    return await _handle_health(request.app)
 
 
 async def handle_readiness(request: Request) -> Response:
     """Handle readiness request."""
-    app = request.app
+    return await _handle_health(request.app)
+
+
+async def _handle_health(app: Application) -> Response:
+    """Run health checks and prepare a response."""
     checks: dict[str, Coroutine[Any, Any, bool]] = {}
 
     if "bot" in app:
@@ -43,15 +41,16 @@ async def handle_readiness(request: Request) -> Response:
 async def _process_checks(
     checks: dict[str, Coroutine[Any, Any, bool]],
 ) -> dict[str, bool]:
-    """Process all checks and return results."""
-    return {name: await check for name, check in checks.items()}
+    """Process all checks concurrently and return results."""
+    results = await asyncio.gather(*checks.values())
+    return dict(zip(checks.keys(), results, strict=True))
 
 
 def _prepare_response(results: dict[str, bool]) -> tuple[int, dict]:
     """Prepare result response."""
-    if all(results.items()):
-        return 200, {"status": "UP"}
-    return 500, {"status": "DOWN", "detail": results}
+    if all(results.values()):
+        return HTTPStatus.OK, {"status": "UP"}
+    return HTTPStatus.INTERNAL_SERVER_ERROR, {"status": "DOWN", "detail": results}
 
 
 def setup(app: Application) -> None:

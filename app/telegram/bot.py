@@ -1,6 +1,8 @@
 import logging
 
 from aiogram import Bot
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 from aiogram.exceptions import TelegramAPIError
 
 from .settings import get_telegram_settings
@@ -13,7 +15,7 @@ def create_bot() -> Bot:
     settings = get_telegram_settings()
     bot = Bot(
         token=settings.TOKEN.get_secret_value(),
-        parse_mode="HTML",
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
     logger.debug("Bot %r created.", bot)
     return bot

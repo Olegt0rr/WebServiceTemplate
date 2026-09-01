@@ -4,19 +4,17 @@ pre-commit:
 	pre-commit install
 	pre-commit autoupdate
 
-black:
-	black app/
+format:
+	ruff format .
 
 mypy:
 	mypy -p app
 
 ruff:
-	ruff check app --fix
-	ruff check tools --fix
-	ruff check tests --fix
+	ruff check . --fix
 
-lint: black ruff mypy
+lint: format ruff mypy
 
 
 run:
-	poetry run python -m app
+	uv run python -m app
