@@ -25,7 +25,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: jpetrucciani/mypy-check@master
+      - uses: astral-sh/setup-uv@v6
         with:
-          path: './app'
-          mypy_flags: '--config-file pyproject.toml'
+          version: "0.12.8"
+      - run: uv sync --frozen
+      - run: uv run mypy app --config-file pyproject.toml
