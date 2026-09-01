@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from http import HTTPStatus
 from typing import TYPE_CHECKING, Any
 
@@ -14,6 +15,8 @@ if TYPE_CHECKING:
     from aiohttp.web_app import Application
     from aiohttp.web_request import Request
     from aiohttp.web_response import Response
+
+logger = logging.getLogger(__name__)
 
 
 async def handle_liveness(request: Request) -> Response:
@@ -41,9 +44,21 @@ async def _handle_health(app: Application) -> Response:
 async def _process_checks(
     checks: dict[str, Coroutine[Any, Any, bool]],
 ) -> dict[str, bool]:
-    """Process all checks concurrently and return results."""
-    results = await asyncio.gather(*checks.values())
-    return dict(zip(checks.keys(), results, strict=True))
+    """Process all checks concurrently and return results.
+
+    A check that raises is treated as failed (fail closed), so the
+    endpoint always answers with a structured health payload.
+    """
+    results = await asyncio.gather(*checks.values(), return_exceptions=True)
+
+    processed: dict[str, bool] = {}
+    for name, result in zip(checks.keys(), results, strict=True):
+        if isinstance(result, BaseException):
+            logger.warning("Health check %r failed: %r", name, result)
+            processed[name] = False
+        else:
+            processed[name] = result
+    return processed
 
 
 def _prepare_response(results: dict[str, bool]) -> tuple[int, dict]:
